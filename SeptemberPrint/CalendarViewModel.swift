@@ -9,11 +9,13 @@
 import UIKit
 import Photos
 
-class CalendarViewModel {
+class CalendarViewModel: NSObject {
     
     var selectedPhotoIndex: NSIndexPath?
     var assets = [PHAsset]()
+    var imageSavedCompletionHandler: ((Bool) -> ())?
     
+    let calendarTargetSize = CGSize(width: 1000, height: 900)
     func fetchGalleryPictures() {
         
         let cachingImageManager = PHCachingImageManager()
@@ -42,7 +44,7 @@ class CalendarViewModel {
     }
     
     func selectPictureAtIndexPath(indexPath: NSIndexPath) {
-
+        
         selectedPhotoIndex = indexPath
     }
     
@@ -51,12 +53,27 @@ class CalendarViewModel {
         let imageManager = PHImageManager()
         let asset = assets[indexPath.row]
         
+        let options = PHImageRequestOptions()
+        options.resizeMode = PHImageRequestOptionsResizeMode.Exact
+        options.deliveryMode = PHImageRequestOptionsDeliveryMode.HighQualityFormat
+        
+        //        var targetSize = CGSizeMake(600, 600)
+//        if isSelected {
+//            if asset.
+//        }
         imageManager.requestImageForAsset(asset,
-                                          targetSize: isSelected ? PHImageManagerMaximumSize : CGSizeMake(800, 800),
-                                     contentMode: .AspectFit,
-                                     options: nil) { (result, _) in
-                                        
-                                        completionHandler(result)
+                                          targetSize: isSelected ? calendarTargetSize : CGSizeMake(600, 600),
+                                          contentMode: .AspectFill,
+                                          options: options) { (result, info) in
+                                            if let info = info {
+                                                if info[PHImageResultIsDegradedKey] === false {
+                                                    if isSelected {
+                                                        print(result!.size)
+                                                    }
+                                                    completionHandler(result)
+                                                }
+                                            }
+                                            
         }
         
     }
@@ -65,42 +82,59 @@ class CalendarViewModel {
         return indexPath == selectedPhotoIndex
     }
     
-    func saveCalendarPicture(completionHandler: () -> ()) {
-
+    func saveCalendarPicture(completionHandler: (Bool) -> ()) {
+        
+        imageSavedCompletionHandler = completionHandler
         
         if let indexPath = selectedPhotoIndex {
+            print("test1")
             fetchImageAtIndexPath(indexPath, isSelected: true, completionHandler: { (image) in
+                print("test2")
                 let selectedImage = image
                 
                 if let calendarImage = UIImage(named: "september") {
                     
-                    print(selectedImage!.size)
+//                    print(selectedImage!.size)
                     
-                    // Determine final image target size
-                    let size = CGSize(width: 1000, height: 900)
-                    UIGraphicsBeginImageContext(size)
+                    UIGraphicsBeginImageContext(self.calendarTargetSize)
                     
                     // Draw selected image within target rect
-                    let areaSize = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+                    let areaSize = CGRect(x: 0, y: 0, width: self.calendarTargetSize.width, height: self.calendarTargetSize.height)
                     selectedImage!.drawInRect(areaSize)
                     
                     // Determine calendar size
                     let calendarAspectRatio = calendarImage.size.width / calendarImage.size.height
-                    let calendarSize = CGSize(width: size.width, height: size.width / calendarAspectRatio)
-
+                    let calendarSize = CGSize(width: self.calendarTargetSize.width, height: self.calendarTargetSize.width / calendarAspectRatio)
+                    
                     // Draw calendar in determined area
-                    let calendarAreaSize = CGRect(x: 0, y: size.height - calendarSize.height, width: calendarSize.width, height: calendarSize.height)
+                    let calendarAreaSize = CGRect(x: 0, y: self.calendarTargetSize.height - calendarSize.height, width: calendarSize.width, height: calendarSize.height)
                     calendarImage.drawInRect(calendarAreaSize, blendMode: .Normal, alpha: 1)
                     
                     let newImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()
                     UIGraphicsEndImageContext()
                     
-                    print(newImage.size)
+//                    print(newImage.size)
+                    
+                    UIImageWriteToSavedPhotosAlbum(newImage, self, #selector(self.savedOK(_:didFinishSavingWithError:contextInfo:)), nil)
+                    
                 }
-
+                
             })
-
+            
         }
         
     }
+    
+    
+    @objc func savedOK(image:UIImage!, didFinishSavingWithError error:NSError!, contextInfo:UnsafePointer<Void>) {
+        if let completionHandler = imageSavedCompletionHandler {
+            guard error == nil else {
+                completionHandler(false)
+                return
+            }
+            completionHandler(true)
+        }
+    }
 }
+
+

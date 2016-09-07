@@ -18,10 +18,10 @@ class CalendarViewController: UITableViewController {
     
     
     // Const
-    let kCollectionViewLeftRightMargin: CGFloat     = 15
-    let kCollectionViewTopBottomMargin: CGFloat     = 20
-    let kCollectionViewInterItemSpacing: CGFloat    = 8
-    let kEstimatedImageWidth: CGFloat               = 200
+    let kCollectionViewLeftRightMargin: CGFloat     = 0
+    let kCollectionViewTopBottomMargin: CGFloat     = 4
+    let kCollectionViewInterItemSpacing: CGFloat    = 4
+    let kEstimatedImageWidth: CGFloat               = 160
     
     // Calculated item width
     var itemWidth: CGFloat                          = 120
@@ -58,6 +58,7 @@ class CalendarViewController: UITableViewController {
         let flowLayout = UICollectionViewFlowLayout()
         
         flowLayout.minimumLineSpacing = kCollectionViewInterItemSpacing
+        flowLayout.minimumInteritemSpacing = kCollectionViewInterItemSpacing
         flowLayout.sectionInset = UIEdgeInsets(top: kCollectionViewTopBottomMargin,
                                                left: kCollectionViewLeftRightMargin,
                                                bottom: kCollectionViewTopBottomMargin,
@@ -77,6 +78,7 @@ class CalendarViewController: UITableViewController {
         galleryCollectionView.delegate = self
         
         galleryCollectionView.registerNib(UINib(nibName: "PhotoCell", bundle: nil), forCellWithReuseIdentifier: "PhotoCell")
+        galleryCollectionView.backgroundColor = UIColor.darkGrayColor()
     }
     
 }
@@ -158,6 +160,15 @@ extension CalendarViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         
+//        let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
+//        let numberOfColums: Int = 3
+//        let totalSpace = flowLayout.sectionInset.left + flowLayout.sectionInset.right + (flowLayout.minimumInteritemSpacing * CGFloat(numberOfColums - 1))
+//        print(flowLayout.sectionInset.left)
+//        print(flowLayout.sectionInset.right)
+//        print(flowLayout.minimumInteritemSpacing)
+//        let size = Int((collectionView.bounds.width - totalSpace) / CGFloat(numberOfColums))
+//        return CGSize(width: size, height: size)
+        
         return CGSizeMake(itemWidth, itemWidth)
     }
     
@@ -165,10 +176,12 @@ extension CalendarViewController: UICollectionViewDelegateFlowLayout {
         
         // Number of columns
         let screenWidth = UIScreen.mainScreen().bounds.width
-        let numberOfColums: Int = Int(round(screenWidth / kEstimatedImageWidth))
-        
+//        let numberOfColums: Int = Int(ceil(screenWidth / kEstimatedImageWidth))
+        let numberOfColums: Int = 3
+
         // Item width (screen width - margins and spacing) / number of columns (-2 to avoid rounding the result and not calculating the right number of columns)
-        let itemWidth = (screenWidth - (kCollectionViewLeftRightMargin*2 + kCollectionViewInterItemSpacing*CGFloat(numberOfColums - 1))) / CGFloat(numberOfColums) - 2
+        let spaces = kCollectionViewLeftRightMargin*2 + kCollectionViewInterItemSpacing*CGFloat(numberOfColums - 1)
+        let itemWidth = (screenWidth - spaces) / CGFloat(numberOfColums)
         
         return itemWidth
     }
@@ -202,8 +215,19 @@ extension CalendarViewController {
 extension CalendarViewController {
     
     func saveCalendar() {
-        viewModel.saveCalendarPicture { 
-            print("saved !")
+        viewModel.saveCalendarPicture { success in
+            
+            if success {
+                print("saved !")
+                let alert = UIAlertController(title: "Image saved", message: "Your calendar is now saved in the phone gallery.", preferredStyle: .Alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
+                self.presentViewController(alert, animated: true, completion: nil)
+            } else {
+                print("not saved :(")
+                let alert = UIAlertController(title: "Error while saving picture", message: "Your calendar has not been saved in the phone gallery.", preferredStyle: .Alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
+                self.presentViewController(alert, animated: true, completion: nil)
+            }
         }
     }
 }
