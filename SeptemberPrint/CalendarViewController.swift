@@ -23,13 +23,16 @@ class CalendarViewController: UITableViewController {
     let kCollectionViewInterItemSpacing: CGFloat    = 4
     let kEstimatedImageWidth: CGFloat               = 160
     
-    // Calculated item width
+    // Calculated values
     var itemWidth: CGFloat                          = 120
-    
+    var calendarHeight: CGFloat                     = 120
+
     // Handle header animation
     @IBOutlet weak var calendarViewTopSpacingConstraint: NSLayoutConstraint!
-    let kCalendarViewHeight: CGFloat                = 280
     var lastOffset: CGFloat                         = 0
+    
+    // How to render the final calendar aspect in the app
+    @IBOutlet weak var calendarHeightConstraint: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +53,7 @@ class CalendarViewController: UITableViewController {
         let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.ExtraLight)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = self.selectedImageView.bounds
-        self.selectedImageView.addSubview(blurEffectView)
+//        self.selectedImageView.addSubview(blurEffectView)
     }
     
     func initCollectionView() {
@@ -64,13 +67,15 @@ class CalendarViewController: UITableViewController {
                                                bottom: kCollectionViewTopBottomMargin,
                                                right: kCollectionViewLeftRightMargin)
         
-//        galleryCollectionView.contentInset = UIEdgeInsets(top: kCollectionViewTopBottomMargin,
-//                                                          left: kCollectionViewLeftRightMargin,
-//                                                          bottom: kCollectionViewTopBottomMargin,
-//                                                          right: kCollectionViewLeftRightMargin)
+        //        galleryCollectionView.contentInset = UIEdgeInsets(top: kCollectionViewTopBottomMargin,
+        //                                                          left: kCollectionViewLeftRightMargin,
+        //                                                          bottom: kCollectionViewTopBottomMargin,
+        //                                                          right: kCollectionViewLeftRightMargin)
         
         
         itemWidth = calculateItemWidth()
+        calendarHeight = calculateCalendarHeight()
+        calendarHeightConstraint.constant = calendarHeight
         
         galleryCollectionView.collectionViewLayout = flowLayout
         
@@ -78,7 +83,7 @@ class CalendarViewController: UITableViewController {
         galleryCollectionView.delegate = self
         
         galleryCollectionView.registerNib(UINib(nibName: "PhotoCell", bundle: nil), forCellWithReuseIdentifier: "PhotoCell")
-        galleryCollectionView.backgroundColor = UIColor.darkGrayColor()
+        galleryCollectionView.backgroundColor = UIColor.blackColor()
     }
     
 }
@@ -115,6 +120,7 @@ extension CalendarViewController: UICollectionViewDelegate {
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("PhotoCell", forIndexPath: indexPath) as? PhotoCell
+
         viewModel.fetchImageAtIndexPath(indexPath, isSelected: false) { (image) in
             if let image = image {
                 cell?.loadCell(image: image, selected: self.viewModel.isPhotoSelectedAtIndexPath(indexPath))
@@ -126,15 +132,14 @@ extension CalendarViewController: UICollectionViewDelegate {
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         
+        
         if indexPath != viewModel.selectedPhotoIndex {
             var indexPaths = [indexPath]
             if let selectedPhotoIndexPath = viewModel.selectedPhotoIndex {
                 indexPaths.append(selectedPhotoIndexPath)
             }
             collectionView.reloadItemsAtIndexPaths(indexPaths)
-            
-            viewModel.selectPictureAtIndexPath(indexPath)
-            
+
             viewModel.fetchImageAtIndexPath(indexPath, isSelected: true) { (image) in
                 if let image = image {
                     self.selectedImageView.image = image
@@ -142,14 +147,15 @@ extension CalendarViewController: UICollectionViewDelegate {
                 
                 dispatch_async(dispatch_get_main_queue(), {
                     self.calendarViewTopSpacingConstraint.constant = 0
-//                    self.galleryCollectionView.contentOffset = CGPointMake(0, self.lastOffset-240)
+                    //                    self.galleryCollectionView.contentOffset = CGPointMake(0, self.lastOffset-240)
                     self.tableView.tableHeaderView?.frame = UIScreen.mainScreen().bounds
                     UIView.animateWithDuration(0.5, animations: {
                         self.view.layoutIfNeeded()
                     })
                 })
             }
-
+            viewModel.selectPictureAtIndexPath(indexPath)
+            
         }
     }
 }
@@ -160,14 +166,14 @@ extension CalendarViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         
-//        let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
-//        let numberOfColums: Int = 3
-//        let totalSpace = flowLayout.sectionInset.left + flowLayout.sectionInset.right + (flowLayout.minimumInteritemSpacing * CGFloat(numberOfColums - 1))
-//        print(flowLayout.sectionInset.left)
-//        print(flowLayout.sectionInset.right)
-//        print(flowLayout.minimumInteritemSpacing)
-//        let size = Int((collectionView.bounds.width - totalSpace) / CGFloat(numberOfColums))
-//        return CGSize(width: size, height: size)
+        //        let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
+        //        let numberOfColums: Int = 3
+        //        let totalSpace = flowLayout.sectionInset.left + flowLayout.sectionInset.right + (flowLayout.minimumInteritemSpacing * CGFloat(numberOfColums - 1))
+        //        print(flowLayout.sectionInset.left)
+        //        print(flowLayout.sectionInset.right)
+        //        print(flowLayout.minimumInteritemSpacing)
+        //        let size = Int((collectionView.bounds.width - totalSpace) / CGFloat(numberOfColums))
+        //        return CGSize(width: size, height: size)
         
         return CGSizeMake(itemWidth, itemWidth)
     }
@@ -176,15 +182,26 @@ extension CalendarViewController: UICollectionViewDelegateFlowLayout {
         
         // Number of columns
         let screenWidth = UIScreen.mainScreen().bounds.width
-//        let numberOfColums: Int = Int(ceil(screenWidth / kEstimatedImageWidth))
+        //        let numberOfColums: Int = Int(ceil(screenWidth / kEstimatedImageWidth))
         let numberOfColums: Int = 3
-
+        
         // Item width (screen width - margins and spacing) / number of columns (-2 to avoid rounding the result and not calculating the right number of columns)
         let spaces = kCollectionViewLeftRightMargin*2 + kCollectionViewInterItemSpacing*CGFloat(numberOfColums - 1)
         let itemWidth = (screenWidth - spaces) / CGFloat(numberOfColums)
         
         return itemWidth
     }
+    
+    func calculateCalendarHeight() -> CGFloat {
+        
+        let aspectRatio = viewModel.calendarTargetSize.width/viewModel.calendarTargetSize.height
+        let screenWidth = UIScreen.mainScreen().bounds.width
+        
+        let calendarHeight = screenWidth/aspectRatio
+        
+        return calendarHeight
+    }
+
 }
 
 // MARK: -  Handle header animation
@@ -197,10 +214,10 @@ extension CalendarViewController {
             let offset = galleryCollectionView.contentOffset.y
             
             if offset >= 0 {
-                if offset <= kCalendarViewHeight {
+                if offset <= calendarHeight {
                     calendarViewTopSpacingConstraint.constant = -offset
                 } else {
-                    calendarViewTopSpacingConstraint.constant = -kCalendarViewHeight
+                    calendarViewTopSpacingConstraint.constant = -calendarHeight
                 }
             }
             
@@ -231,8 +248,3 @@ extension CalendarViewController {
         }
     }
 }
-
-
-
-
-

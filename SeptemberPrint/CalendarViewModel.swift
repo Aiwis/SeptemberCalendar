@@ -14,6 +14,7 @@ class CalendarViewModel: NSObject {
     var selectedPhotoIndex: NSIndexPath?
     var assets = [PHAsset]()
     var imageSavedCompletionHandler: ((Bool) -> ())?
+    var selectedImage: UIImage?
     
     let calendarTargetSize = CGSize(width: 1000, height: 900)
     func fetchGalleryPictures() {
@@ -56,21 +57,49 @@ class CalendarViewModel: NSObject {
         let options = PHImageRequestOptions()
         options.resizeMode = PHImageRequestOptionsResizeMode.Exact
         options.deliveryMode = PHImageRequestOptionsDeliveryMode.HighQualityFormat
-        
-        //        var targetSize = CGSizeMake(600, 600)
-//        if isSelected {
-//            if asset.
-//        }
+
+        var targetSize: CGSize?
+        if isSelected {
+            if let selectedImage = selectedImage {
+                if selectedImage.size.width > selectedImage.size.height {
+                    targetSize = calendarTargetSize
+                } else {
+                    targetSize = CGSize(width: self.calendarTargetSize.height, height: self.calendarTargetSize.width)
+                }
+            }
+        }
         imageManager.requestImageForAsset(asset,
-                                          targetSize: isSelected ? calendarTargetSize : CGSizeMake(600, 600),
+                                          targetSize: targetSize ?? (isSelected ? calendarTargetSize : CGSize(width: 600, height: 600)),
                                           contentMode: .AspectFill,
                                           options: options) { (result, info) in
-                                            if let info = info {
-                                                if info[PHImageResultIsDegradedKey] === false {
-                                                    if isSelected {
-                                                        print(result!.size)
+                                            if let image = result {
+                                                
+                                                print(targetSize)
+                                                print(image.size)
+                                                if image.size == self.calendarTargetSize || image.size == CGSize(width: 600, height: 600) {
+                                                    if let info = info {
+                                                        if info[PHImageResultIsDegradedKey] === false {
+                                                            if isSelected {
+                                                                self.selectedImage = image
+                                                            }
+                                                            completionHandler(image)
+                                                        }
                                                     }
-                                                    completionHandler(result)
+
+                                                } else {
+                                                    imageManager.requestImageForAsset(asset, targetSize: CGSize(width: self.calendarTargetSize.height, height: self.calendarTargetSize.width), contentMode: .AspectFill, options: options, resultHandler: { (result, info) in
+                                                        if let image = result {
+                                                            if let info = info {
+                                                                if info[PHImageResultIsDegradedKey] === false {
+                                                                    if isSelected {
+                                                                        print("final image size")
+                                                                        print(image.size)
+                                                                    }
+                                                                    completionHandler(image)
+                                                                }
+                                                            }
+                                                        }
+                                                    })
                                                 }
                                             }
                                             

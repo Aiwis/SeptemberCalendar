@@ -39,7 +39,7 @@
                                         </collectionViewCell>
                                     </cells>
                                 </collectionView>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Fd2-cO-0iV">
+                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Fd2-cO-0iV">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="280"/>
                                     <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
@@ -84,6 +84,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="zfS-2Q-CYx"/>
                     <connections>
+                        <outlet property="calendarHeightConstraint" destination="hwZ-1p-JQe" id="ton-Li-DBi"/>
                         <outlet property="calendarViewTopSpacingConstraint" destination="41B-sX-UhM" id="hRA-Jc-3K3"/>
                         <outlet property="galleryCollectionView" destination="JRW-LZ-8ik" id="M6d-Pd-lVs"/>
                         <outlet property="selectedImageView" destination="Fd2-cO-0iV" id="D6b-Br-zyD"/>
