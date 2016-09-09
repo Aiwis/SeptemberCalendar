@@ -17,6 +17,11 @@ class CalendarViewModel: NSObject {
     var selectedImage: UIImage?
     
     let calendarTargetSize = CGSize(width: 1000, height: 900)
+    let septemberImageTargetWidth: CGFloat = 500
+    let selectedImageLeftRightMargin: CGFloat = 50
+    let selectedImageTopBottomMargin: CGFloat = 50
+    let septemberImageBottomMargin: CGFloat = 50
+    
     func fetchGalleryPictures() {
         
         let cachingImageManager = PHCachingImageManager()
@@ -57,26 +62,28 @@ class CalendarViewModel: NSObject {
         let options = PHImageRequestOptions()
         options.resizeMode = PHImageRequestOptionsResizeMode.Exact
         options.deliveryMode = PHImageRequestOptionsDeliveryMode.HighQualityFormat
-
-        var targetSize: CGSize?
-        if isSelected {
-            if let selectedImage = selectedImage {
-                if selectedImage.size.width > selectedImage.size.height {
-                    targetSize = calendarTargetSize
-                } else {
-                    targetSize = CGSize(width: self.calendarTargetSize.height, height: self.calendarTargetSize.width)
-                }
-            }
-        }
+        
+//        var targetSize: CGSize?
+        let selectedImageTargetSize = self.selectedImageTargetSize()
+//        if isSelected {
+//            if let selectedImage = selectedImage {
+//                if selectedImage.size.width > selectedImage.size.height {
+//                    targetSize = selectedImageTargetSize
+//                } else {
+//                    targetSize = CGSize(width: selectedImageTargetSize.height, height: selectedImageTargetSize.width)
+//                }
+//            }
+//        }
         imageManager.requestImageForAsset(asset,
-                                          targetSize: targetSize ?? (isSelected ? calendarTargetSize : CGSize(width: 600, height: 600)),
+                                          targetSize:  (isSelected ? selectedImageTargetSize : CGSize(width: 600, height: 600)),
                                           contentMode: .AspectFill,
                                           options: options) { (result, info) in
                                             if let image = result {
                                                 
-                                                print(targetSize)
+                                                print("---------------")
                                                 print(image.size)
-                                                if image.size == self.calendarTargetSize || image.size == CGSize(width: 600, height: 600) {
+                                                print(selectedImageTargetSize)
+                                                if image.size == selectedImageTargetSize || image.size == CGSize(width: 600, height: 600) {
                                                     if let info = info {
                                                         if info[PHImageResultIsDegradedKey] === false {
                                                             if isSelected {
@@ -85,13 +92,15 @@ class CalendarViewModel: NSObject {
                                                             completionHandler(image)
                                                         }
                                                     }
-
-                                                } else {
-                                                    imageManager.requestImageForAsset(asset, targetSize: CGSize(width: self.calendarTargetSize.height, height: self.calendarTargetSize.width), contentMode: .AspectFill, options: options, resultHandler: { (result, info) in
+                                                    
+                                                }
+                                                else {
+                                                    imageManager.requestImageForAsset(asset, targetSize: CGSize(width: selectedImageTargetSize.height, height: selectedImageTargetSize.width), contentMode: .AspectFill, options: options, resultHandler: { (result, info) in
                                                         if let image = result {
                                                             if let info = info {
                                                                 if info[PHImageResultIsDegradedKey] === false {
                                                                     if isSelected {
+                                                                        self.selectedImage = image
                                                                         print("final image size")
                                                                         print(image.size)
                                                                     }
@@ -123,26 +132,29 @@ class CalendarViewModel: NSObject {
                 
                 if let calendarImage = UIImage(named: "september") {
                     
-//                    print(selectedImage!.size)
+                    //                    print(selectedImage!.size)
                     
                     UIGraphicsBeginImageContext(self.calendarTargetSize)
                     
-                    // Draw selected image within target rect
-                    let areaSize = CGRect(x: 0, y: 0, width: self.calendarTargetSize.width, height: self.calendarTargetSize.height)
-                    selectedImage!.drawInRect(areaSize)
-                    
-                    // Determine calendar size
-                    let calendarAspectRatio = calendarImage.size.width / calendarImage.size.height
-                    let calendarSize = CGSize(width: self.calendarTargetSize.width, height: self.calendarTargetSize.width / calendarAspectRatio)
-                    
                     // Draw calendar in determined area
-                    let calendarAreaSize = CGRect(x: 0, y: self.calendarTargetSize.height - calendarSize.height, width: calendarSize.width, height: calendarSize.height)
-                    calendarImage.drawInRect(calendarAreaSize, blendMode: .Normal, alpha: 1)
+                    let calendarAreaX = (self.calendarTargetSize.width - self.septemberImageTargetSize().width) / 2
+                    let calendarAreaY = self.calendarTargetSize.height - self.septemberImageTargetSize().height - self.septemberImageBottomMargin
+                    let calendarArea = CGRect(x: calendarAreaX,
+                        y: calendarAreaY,
+                        width: self.septemberImageTargetSize().width,
+                        height: self.septemberImageTargetSize().height)
+                    calendarImage.drawInRect(calendarArea, blendMode: .Normal, alpha: 1)
+                    
+                    // Draw selected image within target rect
+                    
+                    let selectedImageArea = CGRect(x: self.selectedImageLeftRightMargin,
+                        y: self.selectedImageTopBottomMargin,
+                        width: self.selectedImageTargetSize().width,
+                        height: self.selectedImageTargetSize().height)
+                    selectedImage!.drawInRect(selectedImageArea)
                     
                     let newImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()
                     UIGraphicsEndImageContext()
-                    
-//                    print(newImage.size)
                     
                     UIImageWriteToSavedPhotosAlbum(newImage, self, #selector(self.savedOK(_:didFinishSavingWithError:contextInfo:)), nil)
                     
@@ -163,6 +175,22 @@ class CalendarViewModel: NSObject {
             }
             completionHandler(true)
         }
+    }
+    
+    func septemberImageTargetSize() -> CGSize {
+        if let calendarImage = UIImage(named: "september") {
+            
+            // Determine calendar size
+            let calendarAspectRatio = calendarImage.size.width / calendarImage.size.height
+            return CGSize(width: self.septemberImageTargetWidth, height: self.septemberImageTargetWidth / calendarAspectRatio)
+        }
+        return CGSizeZero
+    }
+    
+    func selectedImageTargetSize() -> CGSize {
+        let selectedImageWidth = self.calendarTargetSize.width - 2 * self.selectedImageLeftRightMargin
+        let selectedImageHeight = self.calendarTargetSize.height - 2 * self.selectedImageTopBottomMargin - self.septemberImageTargetSize().height - self.septemberImageBottomMargin
+        return CGSize(width: round(selectedImageWidth), height: round(selectedImageHeight))
     }
 }
 
