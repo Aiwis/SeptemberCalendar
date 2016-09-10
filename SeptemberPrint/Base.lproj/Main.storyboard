@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Calendar View Controller-->
@@ -18,7 +17,34 @@
                             <rect key="frame" x="0.0" y="64" width="600" height="308"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" bounces="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="JRW-LZ-8ik">
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zQp-Ya-e3P">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="280"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="september" translatesAutoresizingMaskIntoConstraints="NO" id="CbX-Zq-wgR">
+                                            <rect key="frame" x="147" y="179" width="307" height="86"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="86" id="2tg-Kb-Lza"/>
+                                                <constraint firstAttribute="width" constant="307" id="7Jp-Ka-qN7"/>
+                                            </constraints>
+                                        </imageView>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Fd2-cO-0iV">
+                                            <rect key="frame" x="41" y="27" width="518" height="132"/>
+                                            <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        </imageView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="Fd2-cO-0iV" secondAttribute="trailing" constant="41" id="1eG-yG-n0S"/>
+                                        <constraint firstItem="Fd2-cO-0iV" firstAttribute="leading" secondItem="zQp-Ya-e3P" secondAttribute="leading" constant="41" id="BjE-cF-58x"/>
+                                        <constraint firstItem="CbX-Zq-wgR" firstAttribute="centerX" secondItem="zQp-Ya-e3P" secondAttribute="centerX" id="MO2-O1-P2s"/>
+                                        <constraint firstAttribute="height" constant="280" id="Tn0-1U-JIO"/>
+                                        <constraint firstAttribute="bottom" secondItem="CbX-Zq-wgR" secondAttribute="bottom" constant="15" id="V5K-In-45E"/>
+                                        <constraint firstItem="CbX-Zq-wgR" firstAttribute="top" secondItem="Fd2-cO-0iV" secondAttribute="bottom" constant="20" id="X5f-37-j98"/>
+                                        <constraint firstItem="Fd2-cO-0iV" firstAttribute="top" secondItem="zQp-Ya-e3P" secondAttribute="top" constant="27" id="l0v-RJ-n7O"/>
+                                    </constraints>
+                                </view>
+                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="JRW-LZ-8ik">
                                     <rect key="frame" x="0.0" y="279" width="600" height="29"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Qgm-TO-BtY">
@@ -39,26 +65,15 @@
                                         </collectionViewCell>
                                     </cells>
                                 </collectionView>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fd2-cO-0iV">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="280"/>
-                                    <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="280" id="hwZ-1p-JQe"/>
-                                    </constraints>
-                                </imageView>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="september" translatesAutoresizingMaskIntoConstraints="NO" id="CbX-Zq-wgR">
-                                    <rect key="frame" x="8" y="150" width="584" height="118"/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" secondItem="CbX-Zq-wgR" secondAttribute="height" multiplier="73:24" constant="225.08333333333337" id="cas-S0-DbZ"/>
-                                    </constraints>
-                                </imageView>
                             </subviews>
                             <constraints>
                                 <constraint firstItem="JRW-LZ-8ik" firstAttribute="leading" secondItem="XGh-nz-7Ac" secondAttribute="leading" id="0i2-MX-lAr"/>
-                                <constraint firstItem="Fd2-cO-0iV" firstAttribute="top" secondItem="XGh-nz-7Ac" secondAttribute="top" id="41B-sX-UhM"/>
+                                <constraint firstItem="zQp-Ya-e3P" firstAttribute="leading" secondItem="XGh-nz-7Ac" secondAttribute="leading" id="5Pk-f9-z46"/>
                                 <constraint firstAttribute="trailing" secondItem="JRW-LZ-8ik" secondAttribute="trailing" id="D7f-cc-MhJ"/>
+                                <constraint firstItem="zQp-Ya-e3P" firstAttribute="top" secondItem="XGh-nz-7Ac" secondAttribute="top" id="M4A-Xk-h2n"/>
                                 <constraint firstAttribute="bottom" secondItem="JRW-LZ-8ik" secondAttribute="bottom" id="U7z-iu-DP4"/>
+                                <constraint firstAttribute="trailing" secondItem="zQp-Ya-e3P" secondAttribute="trailing" id="fLL-kj-NjM"/>
+                                <constraint firstItem="JRW-LZ-8ik" firstAttribute="top" secondItem="zQp-Ya-e3P" secondAttribute="bottom" constant="-1" id="fTv-Z9-3c9"/>
                             </constraints>
                         </view>
                         <connections>
@@ -68,15 +83,22 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="zfS-2Q-CYx"/>
                     <connections>
-                        <outlet property="calendarHeightConstraint" destination="hwZ-1p-JQe" id="ton-Li-DBi"/>
-                        <outlet property="calendarViewTopSpacingConstraint" destination="41B-sX-UhM" id="hRA-Jc-3K3"/>
+                        <outlet property="calendarViewHeightConstraint" destination="Tn0-1U-JIO" id="qLN-Qx-Ufj"/>
+                        <outlet property="calendarViewTopSpacingConstraint" destination="M4A-Xk-h2n" id="Dfl-Qd-oll"/>
                         <outlet property="galleryCollectionView" destination="JRW-LZ-8ik" id="M6d-Pd-lVs"/>
+                        <outlet property="selectedImageBottomSpaceConstraint" destination="X5f-37-j98" id="T7p-ob-83R"/>
+                        <outlet property="selectedImageLeftMarginConstraint" destination="BjE-cF-58x" id="OCg-ov-m9x"/>
+                        <outlet property="selectedImageRightMarginConstraint" destination="1eG-yG-n0S" id="djJ-nw-dMH"/>
+                        <outlet property="selectedImageTopMarginConstraint" destination="l0v-RJ-n7O" id="UtU-Of-ySb"/>
                         <outlet property="selectedImageView" destination="Fd2-cO-0iV" id="D6b-Br-zyD"/>
+                        <outlet property="septemberImageBottomMarginConstraint" destination="V5K-In-45E" id="chm-Wu-3si"/>
+                        <outlet property="septemberImageHeightConstraint" destination="2tg-Kb-Lza" id="Xme-0l-iug"/>
+                        <outlet property="septemberImageWidthConstraint" destination="7Jp-Ka-qN7" id="wlp-AF-fBq"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iNR-Li-cCL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1483" y="415"/>
+            <point key="canvasLocation" x="1293" y="449"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="HcH-w2-TBF">

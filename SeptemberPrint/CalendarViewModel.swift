@@ -63,17 +63,8 @@ class CalendarViewModel: NSObject {
         options.resizeMode = PHImageRequestOptionsResizeMode.Exact
         options.deliveryMode = PHImageRequestOptionsDeliveryMode.HighQualityFormat
         
-//        var targetSize: CGSize?
         let selectedImageTargetSize = self.selectedImageTargetSize()
-//        if isSelected {
-//            if let selectedImage = selectedImage {
-//                if selectedImage.size.width > selectedImage.size.height {
-//                    targetSize = selectedImageTargetSize
-//                } else {
-//                    targetSize = CGSize(width: selectedImageTargetSize.height, height: selectedImageTargetSize.width)
-//                }
-//            }
-//        }
+
         imageManager.requestImageForAsset(asset,
                                           targetSize:  (isSelected ? selectedImageTargetSize : CGSize(width: 600, height: 600)),
                                           contentMode: .AspectFill,
@@ -146,7 +137,6 @@ class CalendarViewModel: NSObject {
                     calendarImage.drawInRect(calendarArea, blendMode: .Normal, alpha: 1)
                     
                     // Draw selected image within target rect
-                    
                     let selectedImageArea = CGRect(x: self.selectedImageLeftRightMargin,
                         y: self.selectedImageTopBottomMargin,
                         width: self.selectedImageTargetSize().width,
@@ -156,6 +146,7 @@ class CalendarViewModel: NSObject {
                     let newImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()
                     UIGraphicsEndImageContext()
                     
+                    // Save image
                     UIImageWriteToSavedPhotosAlbum(newImage, self, #selector(self.savedOK(_:didFinishSavingWithError:contextInfo:)), nil)
                     
                 }
@@ -166,7 +157,7 @@ class CalendarViewModel: NSObject {
         
     }
     
-    
+    // Image saved callback
     @objc func savedOK(image:UIImage!, didFinishSavingWithError error:NSError!, contextInfo:UnsafePointer<Void>) {
         if let completionHandler = imageSavedCompletionHandler {
             guard error == nil else {
@@ -191,6 +182,13 @@ class CalendarViewModel: NSObject {
         let selectedImageWidth = self.calendarTargetSize.width - 2 * self.selectedImageLeftRightMargin
         let selectedImageHeight = self.calendarTargetSize.height - 2 * self.selectedImageTopBottomMargin - self.septemberImageTargetSize().height - self.septemberImageBottomMargin
         return CGSize(width: round(selectedImageWidth), height: round(selectedImageHeight))
+    }
+    
+    // Obtain a float number to adapt target size to phone size in order to correctly render the target image on the phone
+    // Number is the target value. We return the phone sized value.
+    func ratio(number: CGFloat) -> CGFloat {
+        let aspectRatio = calendarTargetSize.width / UIScreen.mainScreen().bounds.width
+        return number / aspectRatio
     }
 }
 
