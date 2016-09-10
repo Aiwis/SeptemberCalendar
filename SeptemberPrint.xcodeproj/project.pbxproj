@@ -7,8 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E33F0141D84283000AE67A2 /* CalendarCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E33F0131D84283000AE67A2 /* CalendarCollectionViewController.swift */; };
+		3E33F0161D84286800AE67A2 /* CalendarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E33F0151D84286800AE67A2 /* CalendarView.xib */; };
+		3E33F0181D8429F900AE67A2 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E33F0171D8429F900AE67A2 /* CalendarView.swift */; };
+		3E33F01A1D84331A00AE67A2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E33F0191D84331A00AE67A2 /* Main.storyboard */; };
 		3E3B7ABB1D7ED09C00323FA2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3B7ABA1D7ED09C00323FA2 /* AppDelegate.swift */; };
-		3E3B7AC01D7ED09C00323FA2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E3B7ABE1D7ED09C00323FA2 /* Main.storyboard */; };
 		3E3B7AC21D7ED09C00323FA2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E3B7AC11D7ED09C00323FA2 /* Assets.xcassets */; };
 		3E3B7AC51D7ED09C00323FA2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E3B7AC31D7ED09C00323FA2 /* LaunchScreen.storyboard */; };
 		3E3B7AD01D7ED09D00323FA2 /* SeptemberPrintTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3B7ACF1D7ED09D00323FA2 /* SeptemberPrintTests.swift */; };
@@ -38,9 +41,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3E33F0131D84283000AE67A2 /* CalendarCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarCollectionViewController.swift; sourceTree = "<group>"; };
+		3E33F0151D84286800AE67A2 /* CalendarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalendarView.xib; sourceTree = "<group>"; };
+		3E33F0171D8429F900AE67A2 /* CalendarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		3E33F0191D84331A00AE67A2 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		3E3B7AB71D7ED09C00323FA2 /* SeptemberPrint.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SeptemberPrint.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E3B7ABA1D7ED09C00323FA2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3E3B7ABF1D7ED09C00323FA2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3E3B7AC11D7ED09C00323FA2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3E3B7AC41D7ED09C00323FA2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3E3B7AC61D7ED09C00323FA2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -109,7 +115,7 @@
 				3E3B7AEE1D7ED4D800323FA2 /* Model */,
 				3E3B7AED1D7ED4D200323FA2 /* View */,
 				3E3B7ABA1D7ED09C00323FA2 /* AppDelegate.swift */,
-				3E3B7ABE1D7ED09C00323FA2 /* Main.storyboard */,
+				3E33F0191D84331A00AE67A2 /* Main.storyboard */,
 				3E3B7AC11D7ED09C00323FA2 /* Assets.xcassets */,
 				3E3B7AC31D7ED09C00323FA2 /* LaunchScreen.storyboard */,
 				3E3B7AC61D7ED09C00323FA2 /* Info.plist */,
@@ -141,6 +147,9 @@
 				3E3B7AE81D7ED1CD00323FA2 /* CalendarViewController.swift */,
 				3E3B7AF51D7EE5F500323FA2 /* PhotoCell.swift */,
 				3E3B7AF61D7EE5F500323FA2 /* PhotoCell.xib */,
+				3E33F0131D84283000AE67A2 /* CalendarCollectionViewController.swift */,
+				3E33F0151D84286800AE67A2 /* CalendarView.xib */,
+				3E33F0171D8429F900AE67A2 /* CalendarView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -266,9 +275,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				3E3B7AF81D7EE5F500323FA2 /* PhotoCell.xib in Resources */,
+				3E33F01A1D84331A00AE67A2 /* Main.storyboard in Resources */,
 				3E3B7AC51D7ED09C00323FA2 /* LaunchScreen.storyboard in Resources */,
+				3E33F0161D84286800AE67A2 /* CalendarView.xib in Resources */,
 				3E3B7AC21D7ED09C00323FA2 /* Assets.xcassets in Resources */,
-				3E3B7AC01D7ED09C00323FA2 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -294,9 +304,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				3E3B7AF71D7EE5F500323FA2 /* PhotoCell.swift in Sources */,
+				3E33F0181D8429F900AE67A2 /* CalendarView.swift in Sources */,
 				3E3B7AEC1D7ED25A00323FA2 /* CalendarViewModel.swift in Sources */,
 				3E3B7AE91D7ED1CD00323FA2 /* CalendarViewController.swift in Sources */,
 				3E3B7ABB1D7ED09C00323FA2 /* AppDelegate.swift in Sources */,
+				3E33F0141D84283000AE67A2 /* CalendarCollectionViewController.swift in Sources */,
 				3E3B7AFA1D7EE7D300323FA2 /* Photo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -333,14 +345,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		3E3B7ABE1D7ED09C00323FA2 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				3E3B7ABF1D7ED09C00323FA2 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		3E3B7AC31D7ED09C00323FA2 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -528,6 +532,7 @@
 				3E3B7AE11D7ED09D00323FA2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3E3B7AE21D7ED09D00323FA2 /* Build configuration list for PBXNativeTarget "SeptemberPrintTests" */ = {
 			isa = XCConfigurationList;
@@ -536,6 +541,7 @@
 				3E3B7AE41D7ED09D00323FA2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3E3B7AE51D7ED09D00323FA2 /* Build configuration list for PBXNativeTarget "SeptemberPrintUITests" */ = {
 			isa = XCConfigurationList;
@@ -544,6 +550,7 @@
 				3E3B7AE71D7ED09D00323FA2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
