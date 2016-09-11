@@ -16,7 +16,7 @@ class CalendarViewModel: NSObject {
     var imageSavedCompletionHandler: ((Bool) -> ())?
     var selectedImage: UIImage?
     
-    let calendarTargetSize = CGSize(width: 1000, height: 900)
+    let calendarTargetSize = CGSize(width: 1000, height: 1100)
     let septemberImageTargetWidth: CGFloat = 500
     let selectedImageLeftRightMargin: CGFloat = 50
     let selectedImageTopBottomMargin: CGFloat = 50
@@ -121,12 +121,24 @@ class CalendarViewModel: NSObject {
                 print("test2")
                 let selectedImage = image
                 
-                if let calendarImage = UIImage(named: "september") {
+                if let calendarImage = UIImage(named: "september-finalimage") {
                     
                     //                    print(selectedImage!.size)
                     
                     UIGraphicsBeginImageContext(self.calendarTargetSize)
-                    
+
+                    // Add border
+                    let finalImageRect = CGRect(x: 0, y: 0, width: self.calendarTargetSize.width, height: self.calendarTargetSize.height)
+                    let context = UIGraphicsGetCurrentContext();
+                    CGContextBeginTransparencyLayer(context, nil)
+                    CGContextSetStrokeColorWithColor(context, UIColor.sp_lightGrayColor().CGColor)
+
+                    // Add background color
+                    CGContextSetFillColorWithColor(context, UIColor.sp_darkWhiteColor().CGColor)
+                    CGContextFillRect(context, finalImageRect)
+                    CGContextStrokeRectWithWidth(context, finalImageRect, 2)
+                    CGContextEndTransparencyLayer(context)
+
                     // Draw calendar in determined area
                     let calendarAreaX = (self.calendarTargetSize.width - self.septemberImageTargetSize().width) / 2
                     let calendarAreaY = self.calendarTargetSize.height - self.septemberImageTargetSize().height - self.septemberImageBottomMargin
@@ -142,6 +154,14 @@ class CalendarViewModel: NSObject {
                         width: self.selectedImageTargetSize().width,
                         height: self.selectedImageTargetSize().height)
                     selectedImage!.drawInRect(selectedImageArea)
+                    
+                    
+//                    // Add border
+//                    let context = UIGraphicsGetCurrentContext();
+//                    CGContextBeginTransparencyLayer(context, nil)
+//                    CGContextSetRGBStrokeColor(context, 158.0/255.0, 158.0/255.0, 158.0/255.0, 1)
+//                    CGContextStrokeRectWithWidth(context, CGRect(x: 0, y: 0, width: self.calendarTargetSize.width, height: self.calendarTargetSize.height), 2)
+//                    CGContextEndTransparencyLayer(context)
                     
                     let newImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()
                     UIGraphicsEndImageContext()
@@ -169,7 +189,7 @@ class CalendarViewModel: NSObject {
     }
     
     func septemberImageTargetSize() -> CGSize {
-        if let calendarImage = UIImage(named: "september") {
+        if let calendarImage = UIImage(named: "september-finalimage") {
             
             // Determine calendar size
             let calendarAspectRatio = calendarImage.size.width / calendarImage.size.height

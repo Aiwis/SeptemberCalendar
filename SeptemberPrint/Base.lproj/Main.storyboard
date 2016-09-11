@@ -20,7 +20,7 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zQp-Ya-e3P">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="280"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="september" translatesAutoresizingMaskIntoConstraints="NO" id="CbX-Zq-wgR">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="september-finalimage" translatesAutoresizingMaskIntoConstraints="NO" id="CbX-Zq-wgR">
                                             <rect key="frame" x="147" y="179" width="307" height="86"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
@@ -30,14 +30,22 @@
                                         </imageView>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Fd2-cO-0iV">
                                             <rect key="frame" x="41" y="27" width="518" height="132"/>
-                                            <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SCa-2J-dZb">
+                                            <rect key="frame" x="279" y="82" width="42" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="Fd2-cO-0iV" secondAttribute="trailing" constant="41" id="1eG-yG-n0S"/>
+                                        <constraint firstItem="SCa-2J-dZb" firstAttribute="centerX" secondItem="Fd2-cO-0iV" secondAttribute="centerX" id="8D1-rg-eai"/>
                                         <constraint firstItem="Fd2-cO-0iV" firstAttribute="leading" secondItem="zQp-Ya-e3P" secondAttribute="leading" constant="41" id="BjE-cF-58x"/>
                                         <constraint firstItem="CbX-Zq-wgR" firstAttribute="centerX" secondItem="zQp-Ya-e3P" secondAttribute="centerX" id="MO2-O1-P2s"/>
+                                        <constraint firstItem="SCa-2J-dZb" firstAttribute="centerY" secondItem="Fd2-cO-0iV" secondAttribute="centerY" id="PTy-Zm-tn9"/>
                                         <constraint firstAttribute="height" constant="280" id="Tn0-1U-JIO"/>
                                         <constraint firstAttribute="bottom" secondItem="CbX-Zq-wgR" secondAttribute="bottom" constant="15" id="V5K-In-45E"/>
                                         <constraint firstItem="CbX-Zq-wgR" firstAttribute="top" secondItem="Fd2-cO-0iV" secondAttribute="bottom" constant="20" id="X5f-37-j98"/>
@@ -45,7 +53,7 @@
                                     </constraints>
                                 </view>
                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="JRW-LZ-8ik">
-                                    <rect key="frame" x="0.0" y="279" width="600" height="29"/>
+                                    <rect key="frame" x="0.0" y="284" width="600" height="29"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Qgm-TO-BtY">
                                         <size key="itemSize" width="69" height="69"/>
@@ -66,14 +74,15 @@
                                     </cells>
                                 </collectionView>
                             </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstItem="JRW-LZ-8ik" firstAttribute="leading" secondItem="XGh-nz-7Ac" secondAttribute="leading" id="0i2-MX-lAr"/>
                                 <constraint firstItem="zQp-Ya-e3P" firstAttribute="leading" secondItem="XGh-nz-7Ac" secondAttribute="leading" id="5Pk-f9-z46"/>
                                 <constraint firstAttribute="trailing" secondItem="JRW-LZ-8ik" secondAttribute="trailing" id="D7f-cc-MhJ"/>
                                 <constraint firstItem="zQp-Ya-e3P" firstAttribute="top" secondItem="XGh-nz-7Ac" secondAttribute="top" id="M4A-Xk-h2n"/>
-                                <constraint firstAttribute="bottom" secondItem="JRW-LZ-8ik" secondAttribute="bottom" id="U7z-iu-DP4"/>
+                                <constraint firstAttribute="bottom" secondItem="JRW-LZ-8ik" secondAttribute="bottom" constant="-5" id="U7z-iu-DP4"/>
                                 <constraint firstAttribute="trailing" secondItem="zQp-Ya-e3P" secondAttribute="trailing" id="fLL-kj-NjM"/>
-                                <constraint firstItem="JRW-LZ-8ik" firstAttribute="top" secondItem="zQp-Ya-e3P" secondAttribute="bottom" constant="-1" id="fTv-Z9-3c9"/>
+                                <constraint firstItem="JRW-LZ-8ik" firstAttribute="top" secondItem="zQp-Ya-e3P" secondAttribute="bottom" constant="4" id="fTv-Z9-3c9"/>
                             </constraints>
                         </view>
                         <connections>
@@ -83,9 +92,11 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="zfS-2Q-CYx"/>
                     <connections>
+                        <outlet property="calendarView" destination="zQp-Ya-e3P" id="NwR-Dw-kSR"/>
                         <outlet property="calendarViewHeightConstraint" destination="Tn0-1U-JIO" id="qLN-Qx-Ufj"/>
                         <outlet property="calendarViewTopSpacingConstraint" destination="M4A-Xk-h2n" id="Dfl-Qd-oll"/>
                         <outlet property="galleryCollectionView" destination="JRW-LZ-8ik" id="M6d-Pd-lVs"/>
+                        <outlet property="selectPictureLabel" destination="SCa-2J-dZb" id="avy-hJ-nyH"/>
                         <outlet property="selectedImageBottomSpaceConstraint" destination="X5f-37-j98" id="T7p-ob-83R"/>
                         <outlet property="selectedImageLeftMarginConstraint" destination="BjE-cF-58x" id="OCg-ov-m9x"/>
                         <outlet property="selectedImageRightMarginConstraint" destination="1eG-yG-n0S" id="djJ-nw-dMH"/>
@@ -120,6 +131,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="september" width="475" height="162"/>
+        <image name="september-finalimage" width="868" height="395"/>
     </resources>
 </document>

@@ -15,6 +15,8 @@ class CalendarViewController: UITableViewController {
     
     @IBOutlet weak var selectedImageView: UIImageView!
     @IBOutlet weak var galleryCollectionView: UICollectionView!
+    @IBOutlet weak var selectPictureLabel: UILabel!
+    @IBOutlet weak var calendarView: UIView!
     
     // To render the final calendar on each device, we need to calculate all the constraints
     @IBOutlet weak var selectedImageTopMarginConstraint: NSLayoutConstraint!
@@ -28,7 +30,8 @@ class CalendarViewController: UITableViewController {
     
     // Const
     let kCollectionViewLeftRightMargin: CGFloat     = 0
-    let kCollectionViewTopBottomMargin: CGFloat     = 4
+    let kCollectionViewTopMargin: CGFloat           = 0
+    let kCollectionViewBottomMargin: CGFloat        = 4
     let kCollectionViewInterItemSpacing: CGFloat    = 4
     let kEstimatedImageWidth: CGFloat               = 160
     
@@ -54,17 +57,16 @@ class CalendarViewController: UITableViewController {
     
     func initNavigationBar() {
         navigationController?.navigationBar.translucent = false
+        navigationController?.navigationBar.barStyle = .BlackTranslucent
         let saveButtonItem = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: #selector(saveCalendar))
         navigationItem.rightBarButtonItem = saveButtonItem
+        navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+        navigationController?.navigationBar.barTintColor = UIColor.sp_darkBlueColor()
         saveButtonItem.enabled = false
     }
     
     func initTableView() {
         tableView.tableHeaderView?.frame = tableView.frame
-        selectedImageView.clipsToBounds = true
-        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.ExtraLight)
-        let blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView.frame = self.selectedImageView.bounds
         
         // Render final calendar aspect
         selectedImageTopMarginConstraint.constant = viewModel.ratio(viewModel.selectedImageTopBottomMargin)
@@ -78,7 +80,21 @@ class CalendarViewController: UITableViewController {
         
         self.tableView.contentSize = CGSize(width: UIScreen.mainScreen().bounds.width, height: self.tableView.frame.height)
         
+//        self.selectedImageView.layer.borderWidth = 1
+//        self.selectedImageView.layer.borderColor = UIColor.redColor().CGColor
         
+        self.selectPictureLabel.text = "Select a picture"
+        self.selectPictureLabel.textColor = UIColor.sp_lightGrayColor()
+        self.selectPictureLabel.font = UIFont.systemFontOfSize(16)
+        
+//        calendarView.layer.borderWidth = 2
+//        calendarView.layer.borderColor = UIColor.sp_lightGrayColor().CGColor
+        calendarView.backgroundColor = UIColor.sp_darkWhiteColor()
+        
+        selectedImageView.clipsToBounds = true
+        selectedImageView.backgroundColor = UIColor.whiteColor()
+        selectedImageView.layer.borderWidth = 0.5
+        selectedImageView.layer.borderColor = UIColor.sp_lightGrayColor().CGColor
     }
     
     func initCollectionView() {
@@ -87,9 +103,9 @@ class CalendarViewController: UITableViewController {
         
         flowLayout.minimumLineSpacing = kCollectionViewInterItemSpacing
         flowLayout.minimumInteritemSpacing = kCollectionViewInterItemSpacing
-        flowLayout.sectionInset = UIEdgeInsets(top: kCollectionViewTopBottomMargin,
+        flowLayout.sectionInset = UIEdgeInsets(top: kCollectionViewTopMargin,
                                                left: kCollectionViewLeftRightMargin,
-                                               bottom: kCollectionViewTopBottomMargin,
+                                               bottom: kCollectionViewBottomMargin,
                                                right: kCollectionViewLeftRightMargin)
         
         
@@ -101,9 +117,16 @@ class CalendarViewController: UITableViewController {
         galleryCollectionView.delegate = self
         
         galleryCollectionView.registerNib(UINib(nibName: "PhotoCell", bundle: nil), forCellWithReuseIdentifier: "PhotoCell")
-        galleryCollectionView.backgroundColor = UIColor.blackColor()
+        galleryCollectionView.backgroundColor = UIColor.whiteColor()
     }
     
+    func refreshHeader() {
+        if let _ = viewModel.selectedImage {
+            self.navigationItem.rightBarButtonItem?.enabled = true
+            self.selectedImageView.layer.borderWidth = 0
+            selectPictureLabel.hidden = true
+        }
+    }
 }
 
 // MARK: - Table view data source
@@ -164,7 +187,8 @@ extension CalendarViewController: UICollectionViewDelegate {
                 }
                 
                 dispatch_async(dispatch_get_main_queue(), {
-                    self.navigationItem.rightBarButtonItem?.enabled = true
+                    
+                    self.refreshHeader()
                     
                     // Handler header animation
                     self.calendarViewTopSpacingConstraint.constant = 0
