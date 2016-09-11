@@ -37,6 +37,7 @@ class CalendarViewController: UITableViewController {
     
     // Handle header animation
     @IBOutlet weak var calendarViewTopSpacingConstraint: NSLayoutConstraint!
+    var lastTopSpaceConstraint: CGFloat             = 0
     var lastOffset: CGFloat                         = 0
     
     override func viewDidLoad() {
@@ -47,13 +48,19 @@ class CalendarViewController: UITableViewController {
         
         viewModel.fetchGalleryPictures()
         
+        initNavigationBar()
+        
+    }
+    
+    func initNavigationBar() {
         navigationController?.navigationBar.translucent = false
         let saveButtonItem = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: #selector(saveCalendar))
         navigationItem.rightBarButtonItem = saveButtonItem
+        saveButtonItem.enabled = false
     }
     
     func initTableView() {
-        tableView.tableHeaderView?.frame = UIScreen.mainScreen().bounds
+        tableView.tableHeaderView?.frame = tableView.frame
         selectedImageView.clipsToBounds = true
         let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.ExtraLight)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
@@ -68,6 +75,9 @@ class CalendarViewController: UITableViewController {
         septemberImageWidthConstraint.constant = viewModel.ratio(viewModel.septemberImageTargetSize().width)
         septemberImageHeightConstraint.constant = viewModel.ratio(viewModel.septemberImageTargetSize().height)
         septemberImageBottomMarginConstraint.constant = viewModel.ratio(viewModel.septemberImageBottomMargin)
+        
+        self.tableView.contentSize = CGSize(width: UIScreen.mainScreen().bounds.width, height: self.tableView.frame.height)
+        
         
     }
     
@@ -154,9 +164,11 @@ extension CalendarViewController: UICollectionViewDelegate {
                 }
                 
                 dispatch_async(dispatch_get_main_queue(), {
+                    self.navigationItem.rightBarButtonItem?.enabled = true
+                    
+                    // Handler header animation
                     self.calendarViewTopSpacingConstraint.constant = 0
-                    //                    self.galleryCollectionView.contentOffset = CGPointMake(0, self.lastOffset-240)
-                    self.tableView.tableHeaderView?.frame = UIScreen.mainScreen().bounds
+                    self.lastTopSpaceConstraint = 0
                     UIView.animateWithDuration(0.5, animations: {
                         self.view.layoutIfNeeded()
                     })
@@ -181,7 +193,6 @@ extension CalendarViewController: UICollectionViewDelegateFlowLayout {
         
         // Number of columns
         let screenWidth = UIScreen.mainScreen().bounds.width
-        //        let numberOfColums: Int = Int(ceil(screenWidth / kEstimatedImageWidth))
         let numberOfColums: Int = 3
         
         // Item width (screen width - margins and spacing) / number of columns (-2 to avoid rounding the result and not calculating the right number of columns)
@@ -200,17 +211,46 @@ extension CalendarViewController {
         if scrollView == galleryCollectionView {
             
             let offset = galleryCollectionView.contentOffset.y
-            
+
             if offset >= 0 {
-                if offset <= calendarViewHeightConstraint.constant {
-                    calendarViewTopSpacingConstraint.constant = -offset
+                
+                if offset - lastOffset > 0 {
+
+                    if offset <= calendarViewHeightConstraint.constant {
+                        calendarViewTopSpacingConstraint.constant = -offset
+                    } else if -lastTopSpaceConstraint <= calendarViewHeightConstraint.constant {
+                        if lastTopSpaceConstraint - (abs(offset - lastOffset)) > -calendarViewHeightConstraint.constant {
+                            calendarViewTopSpacingConstraint.constant = lastTopSpaceConstraint - (abs(offset - lastOffset))
+                            
+                        } else {
+                            calendarViewTopSpacingConstraint.constant = -calendarViewHeightConstraint.constant
+                        }
+                    }
                 } else {
-                    calendarViewTopSpacingConstraint.constant = -calendarViewHeightConstraint.constant
+                    if calendarViewTopSpacingConstraint.constant < -calendarViewHeightConstraint.constant {
+                        if lastTopSpaceConstraint - (abs(offset - lastOffset)) > -calendarViewHeightConstraint.constant {
+                            calendarViewTopSpacingConstraint.constant = lastTopSpaceConstraint - (abs(offset - lastOffset))
+                            
+                        } else {
+                            calendarViewTopSpacingConstraint.constant = -calendarViewHeightConstraint.constant
+                        }
+                    }  else if offset < calendarViewHeightConstraint.constant && calendarViewTopSpacingConstraint.constant != 0 {
+                        calendarViewTopSpacingConstraint.constant = -offset
+                    } else {
+                        if calendarViewTopSpacingConstraint.constant + (abs(offset - lastOffset)) < 0 {
+                            calendarViewTopSpacingConstraint.constant = calendarViewTopSpacingConstraint.constant + (abs(offset - lastOffset))
+                        } else {
+                            calendarViewTopSpacingConstraint.constant = 0
+                        }
+                    }
                 }
+                
             }
             
+            lastTopSpaceConstraint = calendarViewTopSpacingConstraint.constant
             lastOffset = offset
-            tableView.tableHeaderView?.frame = UIScreen.mainScreen().bounds
+            
+            tableView.tableHeaderView?.frame = CGRect(x: 0, y: 0, width: UIScreen.mainScreen().bounds.width, height: self.tableView.frame.height)
         }
     }
 }
