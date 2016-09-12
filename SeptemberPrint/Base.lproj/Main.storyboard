@@ -8,7 +8,7 @@
         <!--Calendar View Controller-->
         <scene sceneID="6Po-cj-d6H">
             <objects>
-                <tableViewController id="MYG-Ij-VTI" customClass="CalendarViewController" customModule="SeptemberPrint" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="MYG-Ij-VTI" customClass="CalendarViewController" customModule="September" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="8Bq-6s-B66">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -20,7 +20,7 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zQp-Ya-e3P">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="280"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="september-finalimage" translatesAutoresizingMaskIntoConstraints="NO" id="CbX-Zq-wgR">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="september-app" translatesAutoresizingMaskIntoConstraints="NO" id="CbX-Zq-wgR">
                                             <rect key="frame" x="147" y="179" width="307" height="86"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
@@ -28,27 +28,37 @@
                                                 <constraint firstAttribute="width" constant="307" id="7Jp-Ka-qN7"/>
                                             </constraints>
                                         </imageView>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Fd2-cO-0iV">
+                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="Fd2-cO-0iV">
                                             <rect key="frame" x="41" y="27" width="518" height="132"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SCa-2J-dZb">
-                                            <rect key="frame" x="279" y="82" width="42" height="21"/>
+                                            <rect key="frame" x="279" y="124" width="42" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DVN-Uw-C0f">
+                                            <rect key="frame" x="41" y="27" width="518" height="132"/>
+                                            <connections>
+                                                <action selector="selectPictureButtonAction:" destination="MYG-Ij-VTI" eventType="touchUpInside" id="0Mx-2g-vNA"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="Fd2-cO-0iV" secondAttribute="trailing" constant="41" id="1eG-yG-n0S"/>
+                                        <constraint firstItem="DVN-Uw-C0f" firstAttribute="leading" secondItem="Fd2-cO-0iV" secondAttribute="leading" id="2C3-Jx-nyZ"/>
+                                        <constraint firstItem="SCa-2J-dZb" firstAttribute="bottom" secondItem="Fd2-cO-0iV" secondAttribute="bottom" constant="-14" id="5ct-tf-DQE"/>
                                         <constraint firstItem="SCa-2J-dZb" firstAttribute="centerX" secondItem="Fd2-cO-0iV" secondAttribute="centerX" id="8D1-rg-eai"/>
                                         <constraint firstItem="Fd2-cO-0iV" firstAttribute="leading" secondItem="zQp-Ya-e3P" secondAttribute="leading" constant="41" id="BjE-cF-58x"/>
+                                        <constraint firstItem="DVN-Uw-C0f" firstAttribute="top" secondItem="Fd2-cO-0iV" secondAttribute="top" id="KNl-Z0-wm9"/>
                                         <constraint firstItem="CbX-Zq-wgR" firstAttribute="centerX" secondItem="zQp-Ya-e3P" secondAttribute="centerX" id="MO2-O1-P2s"/>
-                                        <constraint firstItem="SCa-2J-dZb" firstAttribute="centerY" secondItem="Fd2-cO-0iV" secondAttribute="centerY" id="PTy-Zm-tn9"/>
                                         <constraint firstAttribute="height" constant="280" id="Tn0-1U-JIO"/>
                                         <constraint firstAttribute="bottom" secondItem="CbX-Zq-wgR" secondAttribute="bottom" constant="15" id="V5K-In-45E"/>
                                         <constraint firstItem="CbX-Zq-wgR" firstAttribute="top" secondItem="Fd2-cO-0iV" secondAttribute="bottom" constant="20" id="X5f-37-j98"/>
+                                        <constraint firstItem="DVN-Uw-C0f" firstAttribute="trailing" secondItem="Fd2-cO-0iV" secondAttribute="trailing" id="eRs-lm-euX"/>
+                                        <constraint firstItem="DVN-Uw-C0f" firstAttribute="bottom" secondItem="Fd2-cO-0iV" secondAttribute="bottom" id="eYN-4V-sVf"/>
                                         <constraint firstItem="Fd2-cO-0iV" firstAttribute="top" secondItem="zQp-Ya-e3P" secondAttribute="top" constant="27" id="l0v-RJ-n7O"/>
                                     </constraints>
                                 </view>
@@ -131,6 +141,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="september-finalimage" width="868" height="395"/>
+        <image name="placeholder" width="266" height="200"/>
+        <image name="september-app" width="579" height="263"/>
     </resources>
 </document>

@@ -18,7 +18,6 @@
 		3E3B7AEC1D7ED25A00323FA2 /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3B7AEB1D7ED25A00323FA2 /* CalendarViewModel.swift */; };
 		3E3B7AF71D7EE5F500323FA2 /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3B7AF51D7EE5F500323FA2 /* PhotoCell.swift */; };
 		3E3B7AF81D7EE5F500323FA2 /* PhotoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E3B7AF61D7EE5F500323FA2 /* PhotoCell.xib */; };
-		3E3B7AFA1D7EE7D300323FA2 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3B7AF91D7EE7D300323FA2 /* Photo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,23 +39,22 @@
 
 /* Begin PBXFileReference section */
 		3E33F01B1D854FEB00AE67A2 /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
-		3E3B7AB71D7ED09C00323FA2 /* SeptemberPrint.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SeptemberPrint.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3E3B7AB71D7ED09C00323FA2 /* September.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = September.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E3B7ABA1D7ED09C00323FA2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3E3B7ABF1D7ED09C00323FA2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3E3B7AC11D7ED09C00323FA2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3E3B7AC41D7ED09C00323FA2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3E3B7AC61D7ED09C00323FA2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3E3B7ACB1D7ED09D00323FA2 /* SeptemberPrintTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SeptemberPrintTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3E3B7ACB1D7ED09D00323FA2 /* September.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = September.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E3B7ACF1D7ED09D00323FA2 /* SeptemberPrintTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeptemberPrintTests.swift; sourceTree = "<group>"; };
 		3E3B7AD11D7ED09D00323FA2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3E3B7AD61D7ED09D00323FA2 /* SeptemberPrintUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SeptemberPrintUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3E3B7AD61D7ED09D00323FA2 /* September.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = September.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E3B7ADA1D7ED09D00323FA2 /* SeptemberPrintUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeptemberPrintUITests.swift; sourceTree = "<group>"; };
 		3E3B7ADC1D7ED09D00323FA2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3E3B7AE81D7ED1CD00323FA2 /* CalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		3E3B7AEB1D7ED25A00323FA2 /* CalendarViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
 		3E3B7AF51D7EE5F500323FA2 /* PhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 		3E3B7AF61D7EE5F500323FA2 /* PhotoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoCell.xib; sourceTree = "<group>"; };
-		3E3B7AF91D7EE7D300323FA2 /* Photo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +82,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3E33F01E1D864B1800AE67A2 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				3E33F01B1D854FEB00AE67A2 /* UIColor.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
 		3E3B7AAE1D7ED09C00323FA2 = {
 			isa = PBXGroup;
 			children = (
@@ -97,9 +103,9 @@
 		3E3B7AB81D7ED09C00323FA2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3E3B7AB71D7ED09C00323FA2 /* SeptemberPrint.app */,
-				3E3B7ACB1D7ED09D00323FA2 /* SeptemberPrintTests.xctest */,
-				3E3B7AD61D7ED09D00323FA2 /* SeptemberPrintUITests.xctest */,
+				3E3B7AB71D7ED09C00323FA2 /* September.app */,
+				3E3B7ACB1D7ED09D00323FA2 /* September.xctest */,
+				3E3B7AD61D7ED09D00323FA2 /* September.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -107,6 +113,7 @@
 		3E3B7AB91D7ED09C00323FA2 /* SeptemberPrint */ = {
 			isa = PBXGroup;
 			children = (
+				3E33F01E1D864B1800AE67A2 /* Extensions */,
 				3E3B7AEF1D7ED4DE00323FA2 /* ViewModel */,
 				3E3B7AEE1D7ED4D800323FA2 /* Model */,
 				3E3B7AED1D7ED4D200323FA2 /* View */,
@@ -115,7 +122,6 @@
 				3E3B7AC11D7ED09C00323FA2 /* Assets.xcassets */,
 				3E3B7AC31D7ED09C00323FA2 /* LaunchScreen.storyboard */,
 				3E3B7AC61D7ED09C00323FA2 /* Info.plist */,
-				3E33F01B1D854FEB00AE67A2 /* UIColor.swift */,
 			);
 			path = SeptemberPrint;
 			sourceTree = "<group>";
@@ -151,7 +157,6 @@
 		3E3B7AEE1D7ED4D800323FA2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				3E3B7AF91D7EE7D300323FA2 /* Photo.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -167,9 +172,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		3E3B7AB61D7ED09C00323FA2 /* SeptemberPrint */ = {
+		3E3B7AB61D7ED09C00323FA2 /* September */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3E3B7ADF1D7ED09D00323FA2 /* Build configuration list for PBXNativeTarget "SeptemberPrint" */;
+			buildConfigurationList = 3E3B7ADF1D7ED09D00323FA2 /* Build configuration list for PBXNativeTarget "September" */;
 			buildPhases = (
 				3E3B7AB31D7ED09C00323FA2 /* Sources */,
 				3E3B7AB41D7ED09C00323FA2 /* Frameworks */,
@@ -179,14 +184,14 @@
 			);
 			dependencies = (
 			);
-			name = SeptemberPrint;
+			name = September;
 			productName = SeptemberPrint;
-			productReference = 3E3B7AB71D7ED09C00323FA2 /* SeptemberPrint.app */;
+			productReference = 3E3B7AB71D7ED09C00323FA2 /* September.app */;
 			productType = "com.apple.product-type.application";
 		};
-		3E3B7ACA1D7ED09D00323FA2 /* SeptemberPrintTests */ = {
+		3E3B7ACA1D7ED09D00323FA2 /* SeptemberTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3E3B7AE21D7ED09D00323FA2 /* Build configuration list for PBXNativeTarget "SeptemberPrintTests" */;
+			buildConfigurationList = 3E3B7AE21D7ED09D00323FA2 /* Build configuration list for PBXNativeTarget "SeptemberTests" */;
 			buildPhases = (
 				3E3B7AC71D7ED09D00323FA2 /* Sources */,
 				3E3B7AC81D7ED09D00323FA2 /* Frameworks */,
@@ -197,14 +202,14 @@
 			dependencies = (
 				3E3B7ACD1D7ED09D00323FA2 /* PBXTargetDependency */,
 			);
-			name = SeptemberPrintTests;
+			name = SeptemberTests;
 			productName = SeptemberPrintTests;
-			productReference = 3E3B7ACB1D7ED09D00323FA2 /* SeptemberPrintTests.xctest */;
+			productReference = 3E3B7ACB1D7ED09D00323FA2 /* September.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		3E3B7AD51D7ED09D00323FA2 /* SeptemberPrintUITests */ = {
+		3E3B7AD51D7ED09D00323FA2 /* SeptemberUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3E3B7AE51D7ED09D00323FA2 /* Build configuration list for PBXNativeTarget "SeptemberPrintUITests" */;
+			buildConfigurationList = 3E3B7AE51D7ED09D00323FA2 /* Build configuration list for PBXNativeTarget "SeptemberUITests" */;
 			buildPhases = (
 				3E3B7AD21D7ED09D00323FA2 /* Sources */,
 				3E3B7AD31D7ED09D00323FA2 /* Frameworks */,
@@ -215,9 +220,9 @@
 			dependencies = (
 				3E3B7AD81D7ED09D00323FA2 /* PBXTargetDependency */,
 			);
-			name = SeptemberPrintUITests;
+			name = SeptemberUITests;
 			productName = SeptemberPrintUITests;
-			productReference = 3E3B7AD61D7ED09D00323FA2 /* SeptemberPrintUITests.xctest */;
+			productReference = 3E3B7AD61D7ED09D00323FA2 /* September.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -243,7 +248,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 3E3B7AB21D7ED09C00323FA2 /* Build configuration list for PBXProject "SeptemberPrint" */;
+			buildConfigurationList = 3E3B7AB21D7ED09C00323FA2 /* Build configuration list for PBXProject "September" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -256,9 +261,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				3E3B7AB61D7ED09C00323FA2 /* SeptemberPrint */,
-				3E3B7ACA1D7ED09D00323FA2 /* SeptemberPrintTests */,
-				3E3B7AD51D7ED09D00323FA2 /* SeptemberPrintUITests */,
+				3E3B7AB61D7ED09C00323FA2 /* September */,
+				3E3B7ACA1D7ED09D00323FA2 /* SeptemberTests */,
+				3E3B7AD51D7ED09D00323FA2 /* SeptemberUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -301,7 +306,6 @@
 				3E3B7AEC1D7ED25A00323FA2 /* CalendarViewModel.swift in Sources */,
 				3E3B7AE91D7ED1CD00323FA2 /* CalendarViewController.swift in Sources */,
 				3E3B7ABB1D7ED09C00323FA2 /* AppDelegate.swift in Sources */,
-				3E3B7AFA1D7EE7D300323FA2 /* Photo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -326,12 +330,12 @@
 /* Begin PBXTargetDependency section */
 		3E3B7ACD1D7ED09D00323FA2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 3E3B7AB61D7ED09C00323FA2 /* SeptemberPrint */;
+			target = 3E3B7AB61D7ED09C00323FA2 /* September */;
 			targetProxy = 3E3B7ACC1D7ED09D00323FA2 /* PBXContainerItemProxy */;
 		};
 		3E3B7AD81D7ED09D00323FA2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 3E3B7AB61D7ED09C00323FA2 /* SeptemberPrint */;
+			target = 3E3B7AB61D7ED09C00323FA2 /* September */;
 			targetProxy = 3E3B7AD71D7ED09D00323FA2 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -448,7 +452,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.appstud.SeptemberPrint;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_MODULE_NAME = September;
+				PRODUCT_NAME = September;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
@@ -462,7 +467,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.appstud.SeptemberPrint;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_MODULE_NAME = September;
+				PRODUCT_NAME = September;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
@@ -474,8 +480,8 @@
 				INFOPLIST_FILE = SeptemberPrintTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.appstud.SeptemberPrintTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SeptemberPrint.app/SeptemberPrint";
+				PRODUCT_NAME = September;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/September.app/September";
 			};
 			name = Debug;
 		};
@@ -486,8 +492,8 @@
 				INFOPLIST_FILE = SeptemberPrintTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.appstud.SeptemberPrintTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SeptemberPrint.app/SeptemberPrint";
+				PRODUCT_NAME = September;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/September.app/September";
 			};
 			name = Release;
 		};
@@ -497,7 +503,7 @@
 				INFOPLIST_FILE = SeptemberPrintUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.appstud.SeptemberPrintUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = September;
 				TEST_TARGET_NAME = SeptemberPrint;
 			};
 			name = Debug;
@@ -508,7 +514,7 @@
 				INFOPLIST_FILE = SeptemberPrintUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.appstud.SeptemberPrintUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = September;
 				TEST_TARGET_NAME = SeptemberPrint;
 			};
 			name = Release;
@@ -516,7 +522,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3E3B7AB21D7ED09C00323FA2 /* Build configuration list for PBXProject "SeptemberPrint" */ = {
+		3E3B7AB21D7ED09C00323FA2 /* Build configuration list for PBXProject "September" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3E3B7ADD1D7ED09D00323FA2 /* Debug */,
@@ -525,7 +531,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3E3B7ADF1D7ED09D00323FA2 /* Build configuration list for PBXNativeTarget "SeptemberPrint" */ = {
+		3E3B7ADF1D7ED09D00323FA2 /* Build configuration list for PBXNativeTarget "September" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3E3B7AE01D7ED09D00323FA2 /* Debug */,
@@ -534,7 +540,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3E3B7AE21D7ED09D00323FA2 /* Build configuration list for PBXNativeTarget "SeptemberPrintTests" */ = {
+		3E3B7AE21D7ED09D00323FA2 /* Build configuration list for PBXNativeTarget "SeptemberTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3E3B7AE31D7ED09D00323FA2 /* Debug */,
@@ -543,7 +549,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3E3B7AE51D7ED09D00323FA2 /* Build configuration list for PBXNativeTarget "SeptemberPrintUITests" */ = {
+		3E3B7AE51D7ED09D00323FA2 /* Build configuration list for PBXNativeTarget "SeptemberUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3E3B7AE61D7ED09D00323FA2 /* Debug */,

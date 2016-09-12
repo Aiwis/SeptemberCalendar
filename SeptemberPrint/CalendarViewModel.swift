@@ -11,12 +11,18 @@ import Photos
 
 class CalendarViewModel: NSObject {
     
-    var selectedPhotoIndex: NSIndexPath?
+    // Gallery
     var assets = [PHAsset]()
-    var imageSavedCompletionHandler: ((Bool) -> ())?
+
+    // Selection
+    var selectedPhotoIndex: NSIndexPath?
     var selectedImage: UIImage?
     
-    let calendarTargetSize = CGSize(width: 1000, height: 1100)
+    // Save picture
+    var imageSavedCompletionHandler: ((Bool) -> ())?
+    
+    // Target image values
+    let calendarTargetSize = CGSize(width: 1000, height: 950)
     let septemberImageTargetWidth: CGFloat = 500
     let selectedImageLeftRightMargin: CGFloat = 50
     let selectedImageTopBottomMargin: CGFloat = 50
@@ -39,7 +45,7 @@ class CalendarViewModel: NSObject {
         }
         
         cachingImageManager.startCachingImagesForAssets(assets,
-                                                        targetSize: PHImageManagerMaximumSize,
+                                                        targetSize: CGSize(width: 600, height: 600),
                                                         contentMode: .AspectFit,
                                                         options: nil
         )
@@ -154,14 +160,6 @@ class CalendarViewModel: NSObject {
                         width: self.selectedImageTargetSize().width,
                         height: self.selectedImageTargetSize().height)
                     selectedImage!.drawInRect(selectedImageArea)
-                    
-                    
-//                    // Add border
-//                    let context = UIGraphicsGetCurrentContext();
-//                    CGContextBeginTransparencyLayer(context, nil)
-//                    CGContextSetRGBStrokeColor(context, 158.0/255.0, 158.0/255.0, 158.0/255.0, 1)
-//                    CGContextStrokeRectWithWidth(context, CGRect(x: 0, y: 0, width: self.calendarTargetSize.width, height: self.calendarTargetSize.height), 2)
-//                    CGContextEndTransparencyLayer(context)
                     
                     let newImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()
                     UIGraphicsEndImageContext()
