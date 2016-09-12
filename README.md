@@ -1,5 +1,7 @@
 # SeptemberCalendar
 
+![alt tag](https://raw.githubusercontent.com/Aiwis/SeptemberCalendar/master/IMG_1679.jpg)
+
 **Objectif**
 
 Créer une application qui enregistre dans la galerie du téléphone un calendrier du mois de septembre avec une photo en fond sélectionnée par l’utilisateur.
