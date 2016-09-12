@@ -1,7 +1,5 @@
 # SeptemberCalendar
 
-![alt tag](https://raw.githubusercontent.com/Aiwis/SeptemberCalendar/master/IMG_1679.jpg)
-
 **Objectif**
 
 Créer une application qui enregistre dans la galerie du téléphone un calendrier du mois de septembre avec une photo en fond sélectionnée par l’utilisateur.
@@ -22,3 +20,5 @@ Créer une application qui enregistre dans la galerie du téléphone un calendri
 - Permettre à l’utilisateur de crop l’image comme il le souhaite
 - Ajouter un color picker pour choisir la couleur de fond du calendrier, par exemple quand on tape sur le fond du calendrier on a une vue qui s’ouvre entre le calendrier et la galerie avec une palette de couleurs et qui permet de visualiser directement le rendu.
 - Ajouter des tests d’UI sur l’animation et des tests unitaires si on va plus loin dans le traitement d’image.
+
+![alt tag](https://raw.githubusercontent.com/Aiwis/SeptemberCalendar/master/IMG_1679.jpg)
