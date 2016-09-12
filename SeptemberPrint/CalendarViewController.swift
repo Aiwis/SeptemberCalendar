@@ -17,6 +17,7 @@ class CalendarViewController: UITableViewController {
     @IBOutlet weak var galleryCollectionView: UICollectionView!
     @IBOutlet weak var selectPictureLabel: UILabel!
     @IBOutlet weak var calendarView: UIView!
+    @IBOutlet weak var selectPictureButton: UIButton!
     
     // To render the final calendar on each device, we need to calculate all the constraints
     @IBOutlet weak var selectedImageTopMarginConstraint: NSLayoutConstraint!
@@ -48,7 +49,7 @@ class CalendarViewController: UITableViewController {
         initCollectionView()
         initCalendarView()
         initNavigationBar()
-
+        
         viewModel.fetchGalleryPictures()
         
     }
@@ -59,7 +60,7 @@ class CalendarViewController: UITableViewController {
         let saveButtonItem = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: #selector(saveCalendar))
         navigationItem.rightBarButtonItem = saveButtonItem
         navigationController?.navigationBar.tintColor = UIColor.whiteColor()
-        navigationController?.navigationBar.barTintColor = UIColor.sp_orangeColor()
+        navigationController?.navigationBar.barTintColor = UIColor.sp_darkBlueColor()
         saveButtonItem.enabled = false
     }
     
@@ -68,9 +69,10 @@ class CalendarViewController: UITableViewController {
     }
     
     func initCalendarView() {
-        self.selectPictureLabel.text = "Select a picture"
-        self.selectPictureLabel.textColor = UIColor.sp_lightGrayColor()
-        self.selectPictureLabel.font = UIFont.systemFontOfSize(16)
+        
+        selectPictureLabel.text = "Select a picture"
+        selectPictureLabel.textColor = UIColor.sp_lightGrayColor()
+        selectPictureLabel.font = UIFont.systemFontOfSize(16)
         
         calendarView.backgroundColor = UIColor.sp_darkWhiteColor()
         
@@ -105,21 +107,20 @@ class CalendarViewController: UITableViewController {
         itemWidth = calculateItemWidth()
         
         galleryCollectionView.collectionViewLayout = flowLayout
-        
         galleryCollectionView.dataSource = self
         galleryCollectionView.delegate = self
-        
         galleryCollectionView.registerNib(UINib(nibName: "PhotoCell", bundle: nil), forCellWithReuseIdentifier: "PhotoCell")
         galleryCollectionView.backgroundColor = UIColor.whiteColor()
     }
     
     func refreshCalendarView() {
         if let image = viewModel.selectedImage {
-            self.selectedImageView.contentMode = .ScaleAspectFit
-            self.navigationItem.rightBarButtonItem?.enabled = true
-            self.selectedImageView.layer.borderWidth = 0
+            selectedImageView.contentMode = .ScaleAspectFit
+            navigationItem.rightBarButtonItem?.enabled = true
+            selectedImageView.layer.borderWidth = 0
             selectPictureLabel.hidden = true
-            self.selectedImageView.image = image
+            selectedImageView.image = image
+            selectPictureButton.hidden = true
         }
     }
 }
@@ -157,7 +158,7 @@ extension CalendarViewController: UICollectionViewDelegate {
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("PhotoCell", forIndexPath: indexPath) as? PhotoCell
         
-        viewModel.fetchImageAtIndexPath(indexPath, isSelected: false) { (image) in
+        viewModel.fetchImageAtIndexPath(indexPath, isSelected: false) { [unowned self] (image) in
             if let image = image {
                 cell?.loadCell(image: image, selected: self.viewModel.isPhotoSelectedAtIndexPath(indexPath))
             }
@@ -170,6 +171,7 @@ extension CalendarViewController: UICollectionViewDelegate {
         
         
         if indexPath != viewModel.selectedPhotoIndex {
+            
             var indexPaths = [indexPath]
             if let selectedPhotoIndexPath = viewModel.selectedPhotoIndex {
                 indexPaths.append(selectedPhotoIndexPath)
@@ -180,17 +182,13 @@ extension CalendarViewController: UICollectionViewDelegate {
             
             viewModel.fetchImageAtIndexPath(indexPath, isSelected: true) { [unowned self] (image) in
                 
+                self.refreshCalendarView()
                 
-                dispatch_async(dispatch_get_main_queue(), {
-                    
-                    self.refreshCalendarView()
-
-                    // Handle calendar view animation
-                    self.calendarViewTopSpacingConstraint.constant = 0
-                    self.lastTopSpaceConstraint = 0
-                    UIView.animateWithDuration(0.5, animations: {
-                        self.view.layoutIfNeeded()
-                    })
+                // Handle calendar view animation
+                self.calendarViewTopSpacingConstraint.constant = 0
+                self.lastTopSpaceConstraint = 0
+                UIView.animateWithDuration(0.5, animations: {
+                    self.view.layoutIfNeeded()
                 })
             }
             
@@ -236,7 +234,7 @@ extension CalendarViewController {
                 if offset - lastOffset > 0 {
                     
                     // Scroll up
-
+                    
                     if offset <= calendarViewHeightConstraint.constant && calendarViewTopSpacingConstraint.constant == -lastOffset {
                         
                         // Corresponds to the zone where the offset is lower than calendar view height,
@@ -251,7 +249,7 @@ extension CalendarViewController {
                         if lastTopSpaceConstraint - (abs(offset - lastOffset)) > -calendarViewHeightConstraint.constant {
                             
                             // The new top constraint (last top constraint - offset delta) is lower than calendar view height
-
+                            
                             calendarViewTopSpacingConstraint.constant = lastTopSpaceConstraint - (abs(offset - lastOffset))
                             
                         } else {
@@ -265,7 +263,7 @@ extension CalendarViewController {
                         // The calendar is hidden and we scroll up, nothing happens
                     }
                 } else {
-
+                    
                     // Scroll down
                     
                     if offset < calendarViewHeightConstraint.constant && calendarViewTopSpacingConstraint.constant != 0 && calendarViewTopSpacingConstraint.constant == -lastOffset {
@@ -278,15 +276,15 @@ extension CalendarViewController {
                     } else {
                         
                         if calendarViewTopSpacingConstraint.constant < -abs(offset - lastOffset)  {
-
+                            
                             // The new top constraint (current top constraint - offset delta) is lower than calendar view height
                             
                             calendarViewTopSpacingConstraint.constant = calendarViewTopSpacingConstraint.constant + (abs(offset - lastOffset))
                             
                         } else {
-
+                            
                             // Fully display calendar view
-
+                            
                             calendarViewTopSpacingConstraint.constant = 0
                         }
                     }
@@ -296,13 +294,14 @@ extension CalendarViewController {
             lastTopSpaceConstraint = calendarViewTopSpacingConstraint.constant
             lastOffset = offset
             
-            tableView.tableHeaderView?.frame = CGRect(x: 0, y: 0, width: UIScreen.mainScreen().bounds.width, height: self.tableView.frame.height)
+            tableView.tableHeaderView?.frame = CGRect(x: 0, y: 0, width: UIScreen.mainScreen().bounds.width, height: tableView.frame.height)
         }
     }
     
     @IBAction func selectPictureButtonAction(sender: AnyObject) {
         if viewModel.selectedImage == nil {
-            galleryCollectionView.setContentOffset(CGPoint(x: 0, y: self.calendarViewHeightConstraint.constant), animated: true)
+            let offsetY = lastOffset + (calendarViewHeightConstraint.constant - abs(lastTopSpaceConstraint))
+            galleryCollectionView.setContentOffset(CGPoint(x: 0, y: offsetY), animated: true)
         }
     }
 }
@@ -312,11 +311,14 @@ extension CalendarViewController {
 extension CalendarViewController {
     
     func saveCalendar() {
-        viewModel.saveCalendarPicture { success in
+        viewModel.saveCalendarPicture { [unowned self] success in
             
             if success {
                 let alert = UIAlertController(title: "Image saved", message: "Your calendar is now saved in the phone gallery.", preferredStyle: .Alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
+                alert.addAction(UIAlertAction(title: "Show in gallery", style: .Default, handler: { (_) in
+                    UIApplication.sharedApplication().openURL(NSURL(string: "photos-redirect://")!)
+                }))
                 self.presentViewController(alert, animated: true, completion: nil)
             } else {
                 let alert = UIAlertController(title: "Error while saving picture", message: "Your calendar has not been saved in the phone gallery.", preferredStyle: .Alert)

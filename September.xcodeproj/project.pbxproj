@@ -115,7 +115,6 @@
 			children = (
 				3E33F01E1D864B1800AE67A2 /* Extensions */,
 				3E3B7AEF1D7ED4DE00323FA2 /* ViewModel */,
-				3E3B7AEE1D7ED4D800323FA2 /* Model */,
 				3E3B7AED1D7ED4D200323FA2 /* View */,
 				3E3B7ABA1D7ED09C00323FA2 /* AppDelegate.swift */,
 				3E3B7ABE1D7ED09C00323FA2 /* Main.storyboard */,
@@ -152,13 +151,6 @@
 				3E3B7AF61D7EE5F500323FA2 /* PhotoCell.xib */,
 			);
 			name = View;
-			sourceTree = "<group>";
-		};
-		3E3B7AEE1D7ED4D800323FA2 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Model;
 			sourceTree = "<group>";
 		};
 		3E3B7AEF1D7ED4DE00323FA2 /* ViewModel */ = {

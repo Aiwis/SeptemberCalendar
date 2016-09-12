@@ -106,6 +106,7 @@
                         <outlet property="calendarViewHeightConstraint" destination="Tn0-1U-JIO" id="qLN-Qx-Ufj"/>
                         <outlet property="calendarViewTopSpacingConstraint" destination="M4A-Xk-h2n" id="Dfl-Qd-oll"/>
                         <outlet property="galleryCollectionView" destination="JRW-LZ-8ik" id="M6d-Pd-lVs"/>
+                        <outlet property="selectPictureButton" destination="DVN-Uw-C0f" id="mKr-iY-jju"/>
                         <outlet property="selectPictureLabel" destination="SCa-2J-dZb" id="avy-hJ-nyH"/>
                         <outlet property="selectedImageBottomSpaceConstraint" destination="X5f-37-j98" id="T7p-ob-83R"/>
                         <outlet property="selectedImageLeftMarginConstraint" destination="BjE-cF-58x" id="OCg-ov-m9x"/>

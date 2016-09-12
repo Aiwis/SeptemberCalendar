@@ -28,6 +28,8 @@ class CalendarViewModel: NSObject {
     let selectedImageTopBottomMargin: CGFloat = 50
     let septemberImageBottomMargin: CGFloat = 50
     
+    // MARK: - Load data
+    
     func fetchGalleryPictures() {
         
         let cachingImageManager = PHCachingImageManager()
@@ -51,15 +53,6 @@ class CalendarViewModel: NSObject {
         )
     }
     
-    func numberOfPictures() -> Int {
-        return assets.count
-    }
-    
-    func selectPictureAtIndexPath(indexPath: NSIndexPath) {
-        
-        selectedPhotoIndex = indexPath
-    }
-    
     func fetchImageAtIndexPath(indexPath: NSIndexPath, isSelected: Bool, completionHandler: (UIImage?)->()) {
         
         let imageManager = PHImageManager()
@@ -70,16 +63,13 @@ class CalendarViewModel: NSObject {
         options.deliveryMode = PHImageRequestOptionsDeliveryMode.HighQualityFormat
         
         let selectedImageTargetSize = self.selectedImageTargetSize()
-
+        
         imageManager.requestImageForAsset(asset,
                                           targetSize:  (isSelected ? selectedImageTargetSize : CGSize(width: 600, height: 600)),
                                           contentMode: .AspectFill,
                                           options: options) { (result, info) in
                                             if let image = result {
                                                 
-                                                print("---------------")
-                                                print(image.size)
-                                                print(selectedImageTargetSize)
                                                 if image.size == selectedImageTargetSize || image.size == CGSize(width: 600, height: 600) {
                                                     if let info = info {
                                                         if info[PHImageResultIsDegradedKey] === false {
@@ -98,8 +88,6 @@ class CalendarViewModel: NSObject {
                                                                 if info[PHImageResultIsDegradedKey] === false {
                                                                     if isSelected {
                                                                         self.selectedImage = image
-                                                                        print("final image size")
-                                                                        print(image.size)
                                                                     }
                                                                     completionHandler(image)
                                                                 }
@@ -113,24 +101,58 @@ class CalendarViewModel: NSObject {
         
     }
     
+    // MARK: - Getters
+    
+    func numberOfPictures() -> Int {
+        return assets.count
+    }
+    
     func isPhotoSelectedAtIndexPath(indexPath: NSIndexPath) -> Bool {
         return indexPath == selectedPhotoIndex
     }
+    
+    // MARK: - Select a picture
+
+    func selectPictureAtIndexPath(indexPath: NSIndexPath) {
+        
+        selectedPhotoIndex = indexPath
+    }
+    
+    func septemberImageTargetSize() -> CGSize {
+        if let calendarImage = UIImage(named: "september-finalimage") {
+            
+            // Determine calendar size
+            let calendarAspectRatio = calendarImage.size.width / calendarImage.size.height
+            return CGSize(width: self.septemberImageTargetWidth, height: self.septemberImageTargetWidth / calendarAspectRatio)
+        }
+        return CGSizeZero
+    }
+    
+    func selectedImageTargetSize() -> CGSize {
+        let selectedImageWidth = self.calendarTargetSize.width - 2 * self.selectedImageLeftRightMargin
+        let selectedImageHeight = self.calendarTargetSize.height - 2 * self.selectedImageTopBottomMargin - self.septemberImageTargetSize().height - self.septemberImageBottomMargin
+        return CGSize(width: round(selectedImageWidth), height: round(selectedImageHeight))
+    }
+    
+    // Obtain a float number to adapt target size to phone size in order to correctly render the target image on the phone
+    /// Number is the target value. We return the phone sized value.
+    func ratio(number: CGFloat) -> CGFloat {
+        let aspectRatio = calendarTargetSize.width / UIScreen.mainScreen().bounds.width
+        return number / aspectRatio
+    }
+    
+    // MARK: - Save picture
     
     func saveCalendarPicture(completionHandler: (Bool) -> ()) {
         
         imageSavedCompletionHandler = completionHandler
         
         if let indexPath = selectedPhotoIndex {
-            print("test1")
             fetchImageAtIndexPath(indexPath, isSelected: true, completionHandler: { (image) in
-                print("test2")
                 let selectedImage = image
                 
                 if let calendarImage = UIImage(named: "september-finalimage") {
-                    
-                    //                    print(selectedImage!.size)
-                    
+                                        
                     UIGraphicsBeginImageContext(self.calendarTargetSize)
 
                     // Add border
@@ -175,7 +197,8 @@ class CalendarViewModel: NSObject {
         
     }
     
-    // Image saved callback
+    // MARK: - Image saved callback
+    
     @objc func savedOK(image:UIImage!, didFinishSavingWithError error:NSError!, contextInfo:UnsafePointer<Void>) {
         if let completionHandler = imageSavedCompletionHandler {
             guard error == nil else {
@@ -185,29 +208,7 @@ class CalendarViewModel: NSObject {
             completionHandler(true)
         }
     }
-    
-    func septemberImageTargetSize() -> CGSize {
-        if let calendarImage = UIImage(named: "september-finalimage") {
-            
-            // Determine calendar size
-            let calendarAspectRatio = calendarImage.size.width / calendarImage.size.height
-            return CGSize(width: self.septemberImageTargetWidth, height: self.septemberImageTargetWidth / calendarAspectRatio)
-        }
-        return CGSizeZero
-    }
-    
-    func selectedImageTargetSize() -> CGSize {
-        let selectedImageWidth = self.calendarTargetSize.width - 2 * self.selectedImageLeftRightMargin
-        let selectedImageHeight = self.calendarTargetSize.height - 2 * self.selectedImageTopBottomMargin - self.septemberImageTargetSize().height - self.septemberImageBottomMargin
-        return CGSize(width: round(selectedImageWidth), height: round(selectedImageHeight))
-    }
-    
-    // Obtain a float number to adapt target size to phone size in order to correctly render the target image on the phone
-    // Number is the target value. We return the phone sized value.
-    func ratio(number: CGFloat) -> CGFloat {
-        let aspectRatio = calendarTargetSize.width / UIScreen.mainScreen().bounds.width
-        return number / aspectRatio
-    }
+
 }
 
 

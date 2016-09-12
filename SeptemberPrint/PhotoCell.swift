@@ -13,12 +13,12 @@ class PhotoCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var overlayView: UIView!
     
-    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
         
         clipsToBounds = true
+        overlayView.hidden = true
+        overlayView.backgroundColor = UIColor.sp_blackAlphaColor()
     }
     
     func loadCell(image image: UIImage, selected: Bool) {
